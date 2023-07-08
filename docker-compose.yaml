@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  local-net:
+
+services:
+
+  rest-api:
+    restart: always
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /node_modules
+    environment:
+      NODE_ENV: development
+      MONGO_HOST: mongodb://mongo:27017
+      MONGO_NAME: candy_db
+      MORGAN_LOG: dev
+    command: npm run start:dev
+    networks:
+      - local-net
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    command: ["mongod", "--port", "27017", "--quiet", "--logpath" ,"/dev/null"]
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - local-net
+
+volumes:
+  mongodb_data:
