@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { DeviceModule } from './device/device.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 const MONGO_HOST = process.env.MONGO_HOST;
 const MONGO_NAME = process.env.MONGO_NAME;
@@ -19,7 +21,7 @@ const MONGO_NAME = process.env.MONGO_NAME;
         connection.on('error', (error) => {
           Logger.error(`Failed to connect to DB: ${error}`, 'MONGO');
         });
-        
+
         return connection;
       },
     }),
@@ -27,6 +29,8 @@ const MONGO_NAME = process.env.MONGO_NAME;
       isGlobal: true,
     }),
     DeviceModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
