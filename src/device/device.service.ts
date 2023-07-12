@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { randomUUID } from 'crypto';
 import { DeviceDto } from 'src/dto';
+import * as moment from 'moment';
 
 @Injectable()
 export class DeviceService {
@@ -45,5 +46,10 @@ export class DeviceService {
     const savedDevice = await device.save();
 
     return savedDevice;
+  }
+
+  // TODO: implement device deletion
+  async deleteDevices(filters: any) {
+    return 'device deleted';
   }
 }
