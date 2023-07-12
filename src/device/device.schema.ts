@@ -19,6 +19,9 @@ export class Device {
 
   @Prop({ enum: ['active', 'inactive', 'maintenance'] })
   status: string;
+
+  @Prop({ default: null })
+  deletedAt: Date;
 }
 
 export const DeviceSchema = SchemaFactory.createForClass(Device);
